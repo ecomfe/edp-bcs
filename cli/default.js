@@ -14,12 +14,6 @@ var cli = {};
 
 /**
  * @const
- * @type {string}
- */
-cli.command = 'bcs';
-
-/**
- * @const
  * @type {Array.<string>}
  */
 cli.options = ['max-size:', 'auto-uri'];
