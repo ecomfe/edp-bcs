@@ -1,14 +1,14 @@
 {
   "name": "edp-bcs",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "edp bcs command package",
   "main": "index.js",
   "scripts": {
     "test": "make -C test"
   },
   "dependencies": {
-    "edp-core": "~0.0.14",
-    "edp-config": "~0.4.4"
+    "edp-core": "~1.0.0",
+    "edp-config": "~1.0.0"
   },
   "repository": {
     "type": "git",
