@@ -10,8 +10,7 @@ var edp = require( 'edp-core' );
  * @param {Object} opts 命令行参数.
  * @return {number}
  */
-exports.getMaxSize = function( opts ) {
-    var maxSize = opts[ 'max-size' ];
+exports.getMaxSize = function( maxSize ) {
     if ( !maxSize ) {
         maxSize = 10 * 1024 * 1024;   // 10M
     }
@@ -50,8 +49,6 @@ exports.start = function (args, opts) {
         process.exit( 1 );
     }
 
-    var maxSize = exports.getMaxSize( opts );
-
     var bktptn = /^bs:\/\/([^\/]+)(.*)?$/;
     var match = args[ 1 ].match( bktptn );
     if ( !match ) {
@@ -78,11 +75,27 @@ exports.start = function (args, opts) {
         process.exit( 1 );
     }
 
-    var autoUri = !!opts['auto-uri'];
+    var opts = {
+        maxSize: opts['max-size'],
+        autoUri: opts['auto-uri'],
+        ak: ak,
+        sk: sk
+    };
 
+    return exports.upload(file, bucket, target, opts);
+};
+
+/**
+ * @param {string} file 文件或目录
+ * @param {string} bucket
+ * @param {string} target 目标目录
+ */
+exports.upload = function (file, bucket, target, opts) {
+    var maxSize = exports.getMaxSize( opts.maxSize );
+    var autoUri = !!opts.autoUri;
     var bcs = require( './lib/sdk' );
-    var sdk = new bcs.BaiduCloudStorage( ak, sk, maxSize, autoUri );
-    sdk.upload( bucket, file, target );
+    var sdk = new bcs.BaiduCloudStorage( opts.ak, opts.sk, maxSize, autoUri );
+    return sdk.upload(bucket, file, target, opts.callback);
 };
 
 

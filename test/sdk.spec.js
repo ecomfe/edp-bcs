@@ -31,7 +31,7 @@ describe('sdk', function(){
         var sdk = new bcs.BaiduCloudStorage( ak, sk, maxSize, autoUri );
 
         var errorMsg = null;
-        var d = sdk.upload( bucket, localFile );
+        var d = sdk.uploadSingle( bucket, localFile );
         d.fail(function(e){
             errorMsg = e.toString().trim();
         });
