@@ -18,16 +18,16 @@ var index = require( '../index' );
 
 describe('index', function(){
     it('default', function(){
-        expect( index.getMaxSize({}) ).toBe( 10 * 1024 * 1024 );
+        expect( index.getMaxSize() ).toBe( 10 * 1024 * 1024 );
 
-        expect( index.getMaxSize({ 'max-size': '2M' }) ).toBe( 2 * 1024 * 1024 );
-        expect( index.getMaxSize({ 'max-size': '2m' }) ).toBe( 2 * 1024 * 1024 );
+        expect( index.getMaxSize('2M') ).toBe( 2 * 1024 * 1024 );
+        expect( index.getMaxSize('2m') ).toBe( 2 * 1024 * 1024 );
 
-        expect( index.getMaxSize({ 'max-size': '2K' }) ).toBe( 2 * 1024 );
-        expect( index.getMaxSize({ 'max-size': '2k' }) ).toBe( 2 * 1024 );
+        expect( index.getMaxSize('2K') ).toBe( 2 * 1024 );
+        expect( index.getMaxSize('2k') ).toBe( 2 * 1024 );
 
-        expect( index.getMaxSize({ 'max-size': '2.1K' }) ).toBe( 2 * 1024 );
-        expect( index.getMaxSize({ 'max-size': '2.1k' }) ).toBe( 2 * 1024 );
+        expect( index.getMaxSize('2.1K') ).toBe( 2 * 1024 );
+        expect( index.getMaxSize('2.1k') ).toBe( 2 * 1024 );
     });
 });
 

@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "edp-core": "~0.0.14",
-    "edp-config": "~0.4.4"
+    "edp-config": "~0.4.4",
+    "async": "~0.2.10",
+    "walk": "~2.3.1"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,10 @@
     "url": "https://github.com/ecomfe/edp-bcs/issues"
   },
   "contributors": [
-    { "name": "leeight", "email" : "leeight@gmail.com" }
+    {
+      "name": "leeight",
+      "email": "leeight@gmail.com"
+    }
   ],
   "author": "",
   "license": "ISC"
