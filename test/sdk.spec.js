@@ -59,6 +59,47 @@ describe('sdk', function(){
             expect( sdk._getObjectName( localDir + '/' ) ).toBe( '/test' );
         });
     });
+
+    it('upload directory', function(){
+        var bucket = "adtest";
+        var ak = "ak";
+        var sk = "sk";
+
+        var maxSize = 10;   // 10字节
+        var autoUri = false;
+
+        var localDir = path.join( __dirname, 'data' );
+
+        //  总共8个文件，并发的是5个，每个延迟2s，总共需要花费Math.ceil( 8 / 5) * 2 == 4s的时间
+        var start = Date.now();
+        var sdk = new bcs.BaiduCloudStorage( ak, sk, maxSize, autoUri );
+        sdk._sendRequest = createSpy('sdk._sendRequest').andCallFake(function( options, data, targetUrl, def ){
+            setTimeout(function(){
+                var bcsUrl = decodeURIComponent( targetUrl.replace(/\?.*/g, '') );
+                def.resolve( bcsUrl );
+            }, 2 * 1000);
+        });
+
+        var errorMsg = null;
+        var result = null;
+        var d = sdk.upload( bucket, localDir );
+        d.fail(function(e){
+            errorMsg = e.toString().trim();
+        });
+        d.done(function(x){
+            result = x;
+        });
+
+        waitsFor(function(){ return d.state !== 'pending'; });
+
+        runs(function(){
+            var end = Date.now();
+            expect( parseInt( (end - start) / 1000, 10 ) ).toBe( 2 );
+            expect( d.state ).toBe( 'resolved' );
+            expect( result.success.length ).toBe( 7 );
+            expect( result.failure.length ).toBe( 1 );
+        });
+    });
 });
 
 
