@@ -85,6 +85,8 @@ exports.start = function (args, opts) {
     sdk.upload( bucket, file, target );
 };
 
+exports.sdk = require( './lib/sdk' );
+
 
 
 
