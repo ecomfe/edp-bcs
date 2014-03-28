@@ -1,17 +1,17 @@
 /***************************************************************************
- * 
+ *
  * Copyright (c) 2014 Baidu.com, Inc. All Rights Reserved
- * $Id$ 
- * 
+ * $Id$
+ *
  **************************************************************************/
- 
- 
- 
+
+
+
 /**
  * sdk.spec.js ~ 2014/03/04 17:34:41
  * @author leeight(liyubei@baidu.com)
- * @version $Revision$ 
- * @description 
+ * @version $Revision$
+ * @description
  * 测试lib/sdk.js
  **/
 var path = require( 'path' );
@@ -19,9 +19,9 @@ var bcs = require( '../lib/sdk' );
 
 describe('sdk', function(){
     it('default', function(){
-        var bucket = "adtest";
-        var ak = "ak";
-        var sk = "sk";
+        var bucket = 'adtest';
+        var ak = 'ak';
+        var sk = 'sk';
 
         var maxSize = 10 * 1024 * 1024;
         var autoUri = false;
@@ -41,8 +41,9 @@ describe('sdk', function(){
         runs(function(){
             expect( d.state ).toBe( 'rejected' );
 
-            // {"Error":{"code":"11","Message":"ACL:Key-pair can not be found.","LogId":"784098592"}}
-            expect( errorMsg.indexOf( 'Error: {"Error":{"code":"11","Message":"ACL:Key-pair can not be found."' ) ).toBe( 0 );
+            // {'Error':{'code':'11','Message':'ACL:Key-pair can not be found.','LogId':'784098592'}}
+            expect( errorMsg.indexOf( 'Error: {\'Error\':{\'code\':\'11\',' +
+                '\'Message\':\'ACL:Key-pair can not be found.\'' ) ).toBe( 0 );
 
             var sign = sdk.sign( 'PUT', bucket, '/a.txt' );
             expect( sign ).toBe( 'http://bs.baidu.com/adtest/a.txt?sign=MBO:ak:YetFoe6VAgXZ8wYLc7K1xSSr8oI%3D' );
@@ -61,9 +62,9 @@ describe('sdk', function(){
     });
 
     it('upload directory', function(){
-        var bucket = "adtest";
-        var ak = "ak";
-        var sk = "sk";
+        var bucket = 'adtest';
+        var ak = 'ak';
+        var sk = 'sk';
 
         var maxSize = 10;   // 10字节
         var autoUri = false;
