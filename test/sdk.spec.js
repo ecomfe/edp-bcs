@@ -61,6 +61,45 @@ describe('sdk', function(){
         });
     });
 
+    it('upload data', function(){
+        var bucket = 'adtest';
+        var ak = 'ak';
+        var sk = 'sk';
+
+        var maxSize = 10 * 1024 * 1024;
+        var autoUri = false;
+
+        var data = 'for upload data';
+        var objectName = '/prefix/name.js'; 
+
+        var sdk = new bcs.BaiduCloudStorage( ak, sk, maxSize, autoUri );
+        sdk._sendRequest = createSpy('sdk._sendRequest').andCallFake(function( options, data, targetUrl, def ){
+            setTimeout(function(){
+                var bcsUrl = decodeURIComponent( targetUrl.replace(/\?.*/g, '') );
+                def.resolve( bcsUrl );
+            }, 500);
+        });
+
+        var errorMsg = null;
+        var result;
+        var d = sdk.realUpload( data, bucket, objectName );
+        d.fail(function(e){
+            errorMsg = e.toString().trim();
+        });
+        d.done(function(x){
+            result = x;
+        });
+
+        waitsFor(function(){ return d.state !== 'pending'; });
+
+        runs(function(){
+            expect( d.state ).toBe( 'resolved' );
+            expect( errorMsg ).toBe( null );
+            expect( result ).toBe( 'http://bs.baidu.com/adtest/prefix/name.js' );
+        });
+    });
+
+
     it('upload directory', function(){
         var bucket = 'adtest';
         var ak = 'ak';
