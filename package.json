@@ -1,6 +1,6 @@
 {
   "name": "edpx-bcs",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "edp bcs command package",
   "main": "index.js",
   "scripts": {
