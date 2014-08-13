@@ -36,6 +36,7 @@ describe('index', function () {
 
 
     it('cli', function () {
+        var _sendRequestBack = bcs.BaiduCloudStorage.prototype._sendRequest;
         bcs.BaiduCloudStorage.prototype._sendRequest = 
             function (options, data, targetUrl, def) {
                 setTimeout(function () {
@@ -135,6 +136,7 @@ describe('index', function () {
             expect(results[5].success.some(function (item) {
                 return item.url === 'http://bs.baidu.com/a-bucket-name/hello/world/y/3-da717507.txt';
             })).toBe(true);
+            bcs.BaiduCloudStorage.prototype._sendRequest = _sendRequestBack;
         });
     });
 
