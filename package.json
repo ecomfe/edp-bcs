@@ -7,8 +7,9 @@
     "test": "make -C test"
   },
   "dependencies": {
-    "edp-core": "~1.0.12",
-    "edp-config": "~1.0.2"
+    "async": "^0.9.0",
+    "edp-config": "~1.0.2",
+    "edp-core": "~1.0.12"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,10 @@
     "url": "https://github.com/ecomfe/edp-bcs/issues"
   },
   "contributors": [
-    { "name": "leeight", "email" : "leeight@gmail.com" }
+    {
+      "name": "leeight",
+      "email": "leeight@gmail.com"
+    }
   ],
   "author": "",
   "license": "ISC"

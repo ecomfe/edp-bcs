@@ -82,7 +82,7 @@ exports.start = function (args, opts) {
 
     var bcs = require( './lib/sdk' );
     var sdk = new bcs.BaiduCloudStorage( ak, sk, maxSize, autoUri );
-    sdk.upload( bucket, file, target );
+    return sdk.upload( bucket, file, target );
 };
 
 exports.sdk = require( './lib/sdk' );
